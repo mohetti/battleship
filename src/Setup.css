@@ -1,0 +1,60 @@
+:root {
+  --row: row;
+  --column: column;
+}
+
+.bodyContainer {
+  display: flex;
+}
+
+.gridContainer {
+  display: grid;
+  margin-left: 100px;
+  margin-top: 20px;
+  height: 500px;
+  width: 500px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.gridCell {
+  border: 1px solid gray;
+  height: 50px;
+  width: 50px;
+}
+
+.shipContainer {
+  margin-left: 300px;
+  margin-top: 20px;
+}
+
+.startGame {
+  display: flex;
+  margin-top: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.rotateBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.shipContainer {
+  display: flex;
+  flex-direction: var(--column);
+}
+
+.shipPort {
+  display: flex;
+  flex-direction: var(--row);
+  margin: 5px;
+}
+
+.shipCell {
+  height: 50px;
+  width: 50px;
+  background-color: yellow;
+  border: 1px solid gray;
+}
