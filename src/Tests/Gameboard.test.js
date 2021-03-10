@@ -21,7 +21,7 @@ it('testing if coords for ship get initialized on yAxis', () => {
   expect(player.bigShip.coords).toEqual([['0,0'], ['1,0'], ['2,0'], ['3,0']]);
 });
 
-it('testing if coords dont get printed when over xAxis', () => {
+/*it('testing if coords dont get printed when over xAxis', () => {
   let player = Gameboard();
   player.populateCoordsPlayer('0,8', 'xAxis', player.midShip1);
   expect(player.midShip1.coords).toEqual([]);
@@ -31,7 +31,7 @@ it('testing if coords dont get printed when over yAxis', () => {
   let player = Gameboard();
   player.populateCoordsPlayer('8,0', 'yAxis', player.midShip1);
   expect(player.midShip1.coords).toEqual([]);
-});
+});*/
 
 it('Testing if receiveAttack populates hitLocation of right Ship and mark ship as sunk', () => {
   let player = Gameboard();

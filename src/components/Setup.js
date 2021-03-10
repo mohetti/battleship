@@ -2,10 +2,19 @@
 // zu tun: shipCell benötigt onDragEnter, -Leave, -Over und drop event
 
 import uniqid from 'uniqid';
+import React, { useEffect } from 'react';
 export const Setup = (props) => {
-  let grid = props.player.ownBoard.gameboard.map((el) => {
-    return <div key={uniqid()} dataindex={el} className="gridCell"></div>;
+  let grid = props.player.ownBoard.gameboard.map((el, index) => {
+    return (
+      <div
+        ref={props.testRef.current[index]}
+        key={uniqid()}
+        dataindex={el}
+        className="gridCell"
+      ></div>
+    );
   });
+
   const individualShip = (incomingShip) => {
     let thisShip = props.player.ownBoard[incomingShip].ship.shipLength;
     let domContent = [];
@@ -25,10 +34,21 @@ export const Setup = (props) => {
       id,
     };
     event.dataTransfer.setData('text', JSON.stringify(obj));
+    setTimeout(() => {
+      event.target.classList.add('invisible');
+    }, 0);
   };
 
   const dragEnd = (event) => {
-    console.log(event.nativeEvent.explicitOriginalTarget);
+    props.player.ownBoard.coordsToBeColored.map((el) => {
+      props.testRef.current.map((ref, index) =>
+        el[0] === ref.current.attributes[0].textContent
+          ? (props.testRef.current[index].current.classList =
+              'gridCell shipSpot')
+          : null
+      );
+      return true;
+    });
   };
 
   const dragEnter = (event) => {
@@ -47,18 +67,17 @@ export const Setup = (props) => {
     event.preventDefault();
     let dataTransfer = JSON.parse(event.dataTransfer.getData('text'));
     let possibleCoords = event.target.attributes[0].textContent;
-
-    console.log(dataTransfer.id);
-    console.log(dataTransfer.index);
-    console.log(props.rotate);
-    console.log(possibleCoords);
-
-    props.placeShipsPlayer(
-      possibleCoords,
-      props.rotate,
-      dataTransfer.id,
-      dataTransfer.index
-    );
+    if (event.target.classList[1] === 'shipCell') {
+      console.log('score');
+      return;
+    } else {
+      props.placeShipsPlayer(
+        possibleCoords,
+        props.rotate,
+        dataTransfer.id,
+        dataTransfer.index
+      );
+    }
   };
 
   return (
@@ -83,8 +102,59 @@ export const Setup = (props) => {
           >
             {individualShip('bigShip')}
           </div>
-          <div id="midShip1" className="shipPort">
+          <div
+            id="midShip1"
+            className="shipPort"
+            onDragStart={dragStart}
+            onDragEnd={dragEnd}
+            draggable={true}
+          >
             {individualShip('midShip1')}
+          </div>
+          <div
+            id="midShip2"
+            className="shipPort"
+            onDragStart={dragStart}
+            onDragEnd={dragEnd}
+            draggable={true}
+          >
+            {individualShip('midShip2')}
+          </div>
+          <div
+            id="smallShip1"
+            className="shipPort"
+            onDragStart={dragStart}
+            onDragEnd={dragEnd}
+            draggable={true}
+          >
+            {individualShip('smallShip1')}
+          </div>
+          <div
+            id="smallShip2"
+            className="shipPort"
+            onDragStart={dragStart}
+            onDragEnd={dragEnd}
+            draggable={true}
+          >
+            {individualShip('smallShip2')}
+          </div>
+          <div
+            id="smallShip3"
+            className="shipPort"
+            onDragStart={dragStart}
+            onDragEnd={dragEnd}
+            draggable={true}
+          >
+            {individualShip('smallShip3')}
+          </div>
+          <div
+            id="tinyShip"
+            className="shipPort"
+            onDragStart={dragStart}
+            onDragEnd={dragEnd}
+            draggable={true}
+          >
+            {individualShip('tinyShip')}
           </div>
         </div>
       </div>

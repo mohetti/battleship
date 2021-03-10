@@ -15,30 +15,20 @@ const Gameboard = function Gameboard() {
 
   // start of ships' definiton and populating coords
   const populateCoordsPlayer = (coord, axis, playersShip, index) => {
-    if (
-      axis === 'xAxis' &&
-      Number(coord.charAt(2)) + playersShip.ship.shipLength - 1 < 10
-    ) {
-      for (let i = 0; i < playersShip.ship.shipLength; i++) {
-        let yCoord = Number(coord.charAt(2)) + i;
+    if (axis === 'xAxis') {
+      for (let i = 0; i < obj[playersShip].ship.shipLength; i++) {
+        let yCoord = Number(coord.charAt(2)) + i - index;
         let xCoord = coord.charAt(0);
-        playersShip.coords.push([xCoord + ',' + yCoord.toString()]);
+        obj[playersShip].coords.push([xCoord + ',' + yCoord.toString()]);
         obj.coordsToBeColored.push([xCoord + ',' + yCoord.toString()]);
       }
-      return;
-    } else if (
-      axis === 'yAxis' &&
-      Number(coord.charAt(0)) + playersShip.ship.shipLength - 1 < 10
-    ) {
-      for (let i = 0; i < playersShip.ship.shipLength; i++) {
+    } else if (axis === 'yAxis') {
+      for (let i = 0; i < obj[playersShip].ship.shipLength; i++) {
         let yCoord = coord.charAt(2);
-        let xCoord = Number(coord.charAt(0)) + i;
-        playersShip.coords.push([xCoord.toString() + ',' + yCoord]);
+        let xCoord = Number(coord.charAt(0)) + i - index;
+        obj[playersShip].coords.push([xCoord.toString() + ',' + yCoord]);
         obj.coordsToBeColored.push([xCoord.toString() + ',' + yCoord]);
       }
-      return;
-    } else {
-      return;
     }
   };
   const bigShip = {
@@ -46,6 +36,15 @@ const Gameboard = function Gameboard() {
     coords: [],
   };
   const midShip1 = { ship: Ship(3), coords: [] };
+
+  const midShip2 = { ship: Ship(3), coords: [] };
+
+  const smallShip1 = { ship: Ship(2), coords: [] };
+  const smallShip2 = { ship: Ship(2), coords: [] };
+  const smallShip3 = { ship: Ship(2), coords: [] };
+
+  const tinyShip = { ship: Ship(1), coords: [] };
+
   const missedCoords = [];
 
   //Attack Functions
@@ -86,6 +85,11 @@ const Gameboard = function Gameboard() {
   const obj = {
     bigShip,
     midShip1,
+    midShip2,
+    smallShip1,
+    smallShip2,
+    smallShip3,
+    tinyShip,
     gameboard,
     populateCoordsPlayer,
     receiveAttack,
